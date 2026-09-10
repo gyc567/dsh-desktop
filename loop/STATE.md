@@ -15,17 +15,28 @@
 
 ## 待办队列（按优先级）
 
-1. [decision] 安装包文件名仍为 dsh-desktop-mac-arm64.*（electron-builder artifactName 取
+1. [escalated] 文档漂移：`docs/development.md` 仍写 `@deepseek-ai/dsh@0.1.1-rc.2`，
+   实际 pin 是 0.1.2-rc.1（daily-triage Run #3 首次快照发现，人工修复后该项即转绿）
+2. [info] npm audit 4 个 high（dsh-ppt/pptxgenjs 传递依赖，`fixAvailable: false`）—
+   上游修复前持续跟踪，不阻断
+3. [decision] 安装包文件名仍为 dsh-desktop-mac-arm64.*（electron-builder artifactName 取
    `name` 字段而非 productName）。是否改为 aura-mac-arm64.*？涉及 release.yml 发布脚本与
    更新服务器 URL 约定，需人类决策后统一切换
-2. [manual] dmg 安装冒烟（见上）
-3. [manual] 替换正式设计 logo（换 build/ 下 PNG + 重跑 install-brand-assets）
-4. （后续）daily-triage 循环上线（第 1 周）
+4. [manual] dmg 安装冒烟（见上）
+5. [manual] 替换正式设计 logo（换 build/ 下 PNG + 重跑 install-brand-assets）
+6. （后续）contract-guard / patch-sentinel 上线（第 2-4 周）
+
+## 最近巡检
+
+- 2026-09-10 daily-triage 首次快照（本地干跑）：Issues 0 open / PRs 0 open /
+  audit high+critical 4 / major 过期 7 / **文档漂移 1 项（escalated）** / README parity 通过 /
+  STATE.md age 0 天。明日起由 GitHub Actions 每日 UTC 07:23 自动执行。
 
 ## 已完成（近期）
 
 - 2026-09-10：品牌改造实施完成，778 测试全绿，electron-vite build 通过
-- 2026-09-10：loop/ 骨架建立（LOOP.md / STATE.md / loop-budget.md / loop-run-log.md），首个循环 release-verify 登记为 L2
+- [done] 品牌改造 + loop 骨架已推送 origin/main（9dfce60 + 8bce4eb）— 2026-09-10 ✅
+  - pre-push 门禁：778/778 测试全绿；拆分为 brand / loop 两个语义提交
 
 ## 风险与升级提示
 

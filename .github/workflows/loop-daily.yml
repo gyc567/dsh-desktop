@@ -1,0 +1,49 @@
+name: Loop Daily Snapshot (Thin Loop)
+
+# L1 report-only thin loop — loop-engineering daily-triage pattern.
+# Read-only snapshot; the only write path is an escalation comment on the tracking
+# issue, and only when escalation triggers fire. Never modifies code.
+on:
+  schedule:
+    - cron: '23 7 * * *' # UTC 07:23 daily (off the :00/:30 herd marks)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: loop-daily
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Daily snapshot
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bash scripts/loop/daily-snapshot.sh
+
+      # Escalation is the ONLY write. No findings → no issue, no noise.
+      # On scheduled runs from forks GITHUB_TOKEN is read-only; the snapshot in the
+      # job summary still lands, only this step may fail — that is acceptable for L1.
+      - name: Escalate (comment on tracking issue)
+        if: env.ESCALATED == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh label create loop-daily --color BFD4F2 --description "Loop Engineering daily-triage" --force
+          ISSUE_URL=$(gh issue list --label loop-daily --state open --json url --jq '.[0].url')
+          BODY="Thin loop escalation $(date -u +%F) — see workflow run summary for the full snapshot: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          if [ -n "$ISSUE_URL" ]; then
+            gh issue comment "$ISSUE_URL" --body "$BODY"
+          else
+            gh issue create --title "🔄 Loop daily-triage escalations" --body "$BODY" --label loop-daily
+          fi

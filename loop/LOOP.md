@@ -34,7 +34,7 @@
 | 模式 | 等级 | 触发 | 状态文件 | 日 token 上限 |
 |---|---|---|---|---|
 | release-verify（发布产物验证） | L2 | 手动/发版前 | STATE.md | 200k |
-| daily-triage（规划中） | L1 | 每日 | STATE.md | 100k |
+| daily-triage（每日巡检） | **L1 已上线** | 每日 UTC 07:23（loop-daily.yml）+ 手动 | STATE.md | 100k |
 | patch-sentinel（规划中，自定义） | L2 | 上游发版事件 | state/patch-sentinel-state.md | 800k |
 | contract-guard（规划中，自定义） | L1 | 每日 | state/contract-guard-state.md | 50k |
 
