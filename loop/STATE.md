@@ -19,10 +19,9 @@
    实际 pin 是 0.1.2-rc.1（daily-triage Run #3 首次快照发现，人工修复后该项即转绿）
 2. [info] npm audit 4 个 high（dsh-ppt/pptxgenjs 传递依赖，`fixAvailable: false`）—
    上游修复前持续跟踪，不阻断
-3. [decision] 安装包文件名仍为 dsh-desktop-mac-arm64.*（electron-builder artifactName 取
-   `name` 字段而非 productName）。是否改为 aura-mac-arm64.*？涉及 release.yml 发布脚本与
-   更新服务器 URL 约定，需人类决策后统一切换
-4. [manual] dmg 安装冒烟（见上）
+3. [done] 安装包文件名已统一切换为 aura-mac-arm64.* / aura-windows-*-setup.exe（Run #6，
+   4ddb3a6 之后的提交；已清 dist 重建验证）。首个 CI release 留意 latest.yml 指向新文件名
+4. [manual] dmg 安装冒烟（人类已认领，进行中）
 5. [manual] 替换正式设计 logo（换 build/ 下 PNG + 重跑 install-brand-assets）
 6. （后续）contract-guard / patch-sentinel 上线（第 2-4 周）
 

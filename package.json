@@ -384,7 +384,7 @@
       }
     ],
     "detectUpdateChannel": false,
-    "artifactName": "dsh-desktop-${os}-${arch}.${ext}",
+    "artifactName": "aura-${os}-${arch}.${ext}",
     "mac": {
       "category": "public.app-category.developer-tools",
       "icon": "build/icon.icns",
@@ -411,7 +411,7 @@
       ]
     },
     "nsis": {
-      "artifactName": "dsh-desktop-windows-${arch}-setup.${ext}",
+      "artifactName": "aura-windows-${arch}-setup.${ext}",
       "include": "build/installer.nsh",
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,

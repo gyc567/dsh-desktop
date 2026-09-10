@@ -5,9 +5,9 @@ import { describe, expect, it } from 'vitest'
 const projectRoot = path.resolve(import.meta.dirname, '..')
 
 const releaseAssets = [
-  'dsh-desktop-mac-arm64.dmg',
-  'dsh-desktop-mac-x64.dmg',
-  'dsh-desktop-windows-x64-setup.exe'
+  'aura-mac-arm64.dmg',
+  'aura-mac-x64.dmg',
+  'aura-windows-x64-setup.exe'
 ]
 
 describe('GitHub release contract', () => {
@@ -158,7 +158,7 @@ describe('GitHub release contract', () => {
       'utf8'
     )
 
-    expect(packageJson.build.artifactName).toBe('dsh-desktop-${os}-${arch}.${ext}')
+    expect(packageJson.build.artifactName).toBe('aura-${os}-${arch}.${ext}')
     expect(packageJson.build.extraResources).toContainEqual({
       from: 'build/app-icon.png',
       to: 'icon.png'
@@ -194,7 +194,7 @@ describe('GitHub release contract', () => {
       to: 'dsh-desktop-safe.patch.yml'
     })
     expect(packageJson.build.nsis.artifactName).toBe(
-      'dsh-desktop-windows-${arch}-setup.${ext}'
+      'aura-windows-${arch}-setup.${ext}'
     )
     expect(packageJson.build.nsis.include).toBe('build/installer.nsh')
     expect(packageJson.build.win.target).toEqual([{ target: 'nsis', arch: ['x64'] }])
@@ -298,9 +298,9 @@ describe('GitHub release contract', () => {
       'latest-mac-x64.yml',
       'latest-mac.yml',
       'latest.yml',
-      'dsh-desktop-mac-arm64.zip.blockmap',
-      'dsh-desktop-mac-x64.zip.blockmap',
-      'dsh-desktop-windows-x64-setup.exe.blockmap'
+      'aura-mac-arm64.zip.blockmap',
+      'aura-mac-x64.zip.blockmap',
+      'aura-windows-x64-setup.exe.blockmap'
     ]) {
       expect(workflow).toContain(asset)
     }
@@ -355,10 +355,10 @@ describe('GitHub release contract', () => {
     expect(developmentConfig).toContain("output: 'dist-dev'")
     expect(developmentConfig).toContain("dshDesktopChannel: 'development'")
     expect(developmentConfig).toContain(
-      "artifactName: 'dsh-desktop-dev-${os}-${arch}.${ext}'"
+      "artifactName: 'aura-dev-${os}-${arch}.${ext}'"
     )
     expect(developmentConfig).toContain(
-      "artifactName: 'dsh-desktop-dev-windows-${arch}-setup.${ext}'"
+      "artifactName: 'aura-dev-windows-${arch}-setup.${ext}'"
     )
     expect(main).toContain("app.setPath('userData', join(app.getPath('appData'), 'dsh-desktop-dev'))")
     expect(main).toContain("app.setPath('userData', join(app.getPath('appData'), 'dsh-desktop'))")
@@ -397,7 +397,7 @@ describe('GitHub release contract', () => {
     expect(workflow).toContain('prerelease_tag:')
     expect(workflow).toContain('--prerelease')
     expect(workflow).toContain('name: windows-x64-dev')
-    expect(workflow).toContain('dist-dev/dsh-desktop-dev-windows-x64-setup.exe')
+    expect(workflow).toContain('dist-dev/aura-dev-windows-x64-setup.exe')
     for (const asset of releaseAssets) expect(workflow).toContain(asset)
     expect(
       workflow.match(

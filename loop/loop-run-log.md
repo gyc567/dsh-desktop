@@ -4,6 +4,25 @@
 
 ## 2026-09-10
 
+### Run #6 — release-verify 产物改名 aura-* 决策执行 · L2 · 手动触发
+- started: 2026-09-10，人类决策：安装包文件名统一切换 aura-*
+- acted: electron-builder artifactName → aura-${os}-${arch}.${ext} / aura-windows-${arch}-setup.${ext}
+  （dev 版 aura-dev-*）；release.yml 26 处、verify-release-assets 8 产物、5 个测试文件同步；
+  更新源 URL / appId / userData 路径不动；grep 穷尽确认产物名 0 残留
+- verified: 778/778 测试通过；electron-vite build 通过；**清 dist 全量重建**：
+  dist/aura-mac-arm64.dmg (179M) + .zip (210M) + blockmaps 以新名产出
+- found: 无；首个走 CI 的 release 需确认 latest.yml 指向新文件名（electron-builder 自动生成，
+  verify-release-assets 已断言）
+- 结果: PASS；tokens(约): 60k
+
+### Run #5 — release-verify 产物复检 · L2 · 手动触发
+- started: 2026-09-10，人类要求最终确证
+- verified: dmg CRC32 校验 VALID；挂载成功，内容 = Aura.app + Applications 快捷链接；
+  可执行文件 Mach-O arm64 确认；app 包 614M；品牌 logo 在 bundle 内；卸载干净
+- found: spctl 报 ad-hoc 签名资源封条缺失（预期内：本机无 Developer ID，不可分发，
+  本机可右键打开运行）；产物文件名仍为 dsh-desktop-mac-arm64.*（decision 待拍板）
+- 结果: PASS（macOS arm64 安装文件确证存在且完整）；tokens(约): 10k
+
 ### Run #4 — daily-triage workflow_dispatch 线上验证 · L1
 - started: 2026-09-10，触发方式 `gh workflow run loop-daily.yml --ref main`
 - 第一轮（run 34492514808）: **failure —— 首次真实触发抓到环境差异**：快照步骤成功且

@@ -13,10 +13,10 @@ module.exports = {
     productName: 'Aura Dev',
     dshDesktopChannel: 'development'
   },
-  artifactName: 'dsh-desktop-dev-${os}-${arch}.${ext}',
+  artifactName: 'aura-dev-${os}-${arch}.${ext}',
   nsis: {
     ...packageJson.build.nsis,
-    artifactName: 'dsh-desktop-dev-windows-${arch}-setup.${ext}'
+    artifactName: 'aura-dev-windows-${arch}-setup.${ext}'
   },
   publish: null
 }
