@@ -7,7 +7,7 @@
       http-equiv="Content-Security-Policy"
       content="default-src 'none'; img-src 'self' file:; style-src 'unsafe-inline'; script-src 'unsafe-inline'"
     />
-    <title>DSH Desktop</title>
+    <title>Aura</title>
     <style>
       :root {
         color-scheme: light dark;
@@ -62,6 +62,7 @@
       .brand { display: flex; align-items: center; gap: 11px; min-width: 0; }
       .brand img { width: 28px; height: 28px; border-radius: 8px; }
       .brand-name { font-size: 14px; font-weight: 650; letter-spacing: -0.01em; }
+      .brand-contact { color: var(--muted); font-size: 11px; font-weight: 500; }
       .badge {
         display: inline-flex;
         align-items: center;
@@ -415,6 +416,7 @@
         <div class="brand">
           <img id="icon" alt="" />
           <span class="brand-name" id="brand"></span>
+          <span class="brand-contact" id="contact"></span>
           <span class="badge" id="badge"></span>
         </div>
       </header>
@@ -493,7 +495,7 @@
       const model = JSON.parse(params.get('state') || '{}')
       document.documentElement.lang = model.locale === 'zh' ? 'zh-CN' : 'en'
       document.documentElement.dataset.theme = params.get('theme') || 'system'
-      document.title = model.badge || 'DSH Desktop'
+      document.title = model.badge || 'Aura'
 
       const setText = (id, value) => {
         const node = document.getElementById(id)
@@ -502,6 +504,7 @@
 
       document.getElementById('icon').src = params.get('icon') || 'icon.png'
       setText('brand', model.brand)
+      setText('contact', model.contact)
       setText('badge', model.badge)
       setText('heading', model.heading)
       setText('summary', model.summary)

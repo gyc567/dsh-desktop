@@ -6,8 +6,9 @@ window.__ModuleLoader__.load({
     Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' })
 
     const React = require('react')
-    const { BrandWordmark, FishLogo } = require('@deepseek-ai/dsh-client-ui-primitives')
+    const { FishLogo } = require('@deepseek-ai/dsh-client-ui-primitives')
 
+    const BRAND_TEXT = 'Aura智能工作台'
     const LIGHT_LOGO_URL = '/dsh-desktop-logo-light.png'
     const DARK_LOGO_URL = '/dsh-desktop-logo-dark.png'
     const STYLE_ID = 'dsh-desktop-client-ui-style'
@@ -58,7 +59,21 @@ window.__ModuleLoader__.load({
     }
 
     function DesktopBrandName() {
-      return React.createElement(BrandWordmark, { includeMark: false })
+      return React.createElement(
+        'span',
+        {
+          className: 'dshDesktopBrandName',
+          style: {
+            fontSize: '14px',
+            fontWeight: 600,
+            letterSpacing: '-0.01em',
+            lineHeight: '24px',
+            color: 'var(--dsw-alias-label-primary, inherit)',
+            whiteSpace: 'nowrap'
+          }
+        },
+        BRAND_TEXT
+      )
     }
 
     function ConversationBrandMark(props) {

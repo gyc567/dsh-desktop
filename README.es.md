@@ -1,6 +1,6 @@
 <h1 align="center">
-  <img src="docs/images/readme-logo-black-v020.png" width="64" alt="Logotipo de DSH Desktop" valign="middle" />
-  DSH Desktop
+  <img src="docs/images/readme-logo-black-v020.png" width="64" alt="Logotipo de Aura智能工作台" valign="middle" />
+  Aura智能工作台
 </h1>
 
 <p align="center">
@@ -18,14 +18,14 @@
   <img alt="Windows" src="https://img.shields.io/badge/Windows-x64-171513.svg" />
 </p>
 
-![DSH Desktop con Preset portátiles, proveedores de modelos, control desde el teléfono y generación de PPTX editables](docs/images/dsh-desktop-hero-v021.png)
+![Aura智能工作台 con Preset portátiles, proveedores de modelos, control desde el teléfono y generación de PPTX editables](docs/images/dsh-desktop-hero-v021.png)
 
 <p align="center"><strong>Usa modelos oficiales de DeepSeek o proveedores externos populares, administra Agent Preset portátiles, continúa tus sesiones de Harness desde el teléfono y convierte material de origen en presentaciones PPTX editables.</strong></p>
 
-DSH Desktop convierte la experiencia local de DeepSeek Harness en una aplicación de escritorio instalable. Inicia Harness automáticamente, guarda Profile, plugins, espacios de trabajo, ajustes de modelos y sesiones fuera del directorio de la aplicación y abre la interfaz completa cuando el Runtime local está listo.
+Aura智能工作台 convierte la experiencia local de DeepSeek Harness en una aplicación de escritorio instalable. Inicia Harness automáticamente, guarda Profile, plugins, espacios de trabajo, ajustes de modelos y sesiones fuera del directorio de la aplicación y abre la interfaz completa cuando el Runtime local está listo.
 
 > [!IMPORTANT]
-> DSH Desktop es una versión preliminar basada en `@deepseek-ai/dsh@0.1.2-rc.1`, que evoluciona rápidamente. Las versiones de macOS están firmadas y notarizadas por Apple. Los instaladores para Windows x64 también están firmados; las advertencias de seguridad de Windows pueden disminuir gradualmente a medida que el editor acumula reputación de descargas e instalaciones.
+> Aura智能工作台 es una versión preliminar basada en `@deepseek-ai/dsh@0.1.2-rc.1`, que evoluciona rápidamente. Las versiones de macOS están firmadas y notarizadas por Apple. Los instaladores para Windows x64 también están firmados; las advertencias de seguridad de Windows pueden disminuir gradualmente a medida que el editor acumula reputación de descargas e instalaciones.
 
 ## Descarga
 
@@ -33,19 +33,19 @@ Ofrecemos versiones estables y preliminares: la **versión estable**, recomendad
 
 Las versiones preliminares incluyen nuestras nuevas funciones y adoptan con rapidez las últimas versiones oficiales de DeepSeek Harness. Pueden ser incompatibles con los plugins de la comunidad y **no se recomiendan para usuarios generales**. Invitamos a quienes quieran probar las novedades antes que nadie a compartir sus comentarios en la comunidad; solo distribuimos las actualizaciones a toda la comunidad después de que estos usuarios las hayan validado.
 
-Las versiones instaladas comprueban actualizaciones poco después del inicio y cada seis horas. Cuando hay una versión nueva, DSH Desktop pregunta antes de descargarla; la instalación solo comienza al elegir **Restart and install**. También puedes comprobar manualmente o saltar una versión sin ocultar versiones posteriores.
+Las versiones instaladas comprueban actualizaciones poco después del inicio y cada seis horas. Cuando hay una versión nueva, Aura智能工作台 pregunta antes de descargarla; la instalación solo comienza al elegir **Restart and install**. También puedes comprobar manualmente o saltar una versión sin ocultar versiones posteriores.
 
 ## Comunidad
 
 <p align="center">
-  Escanea el siguiente código QR con WeChat para unirte al grupo de DSH Desktop.<br />
-  <img src="docs/images/wechat-group-20260815.png" width="220" alt="Código QR del grupo de DSH Desktop en WeChat" /><br />
-  También puedes unirte a la <a href="https://discord.gg/he2gAKCpj">comunidad de DSH Desktop en Discord</a>.
+  Escanea el siguiente código QR con WeChat para unirte al grupo de Aura智能工作台.<br />
+  <img src="docs/images/wechat-group-20260815.png" width="220" alt="Código QR del grupo de Aura智能工作台 en WeChat" /><br />
+  También puedes unirte a la <a href="https://discord.gg/he2gAKCpj">comunidad de Aura智能工作台 en Discord</a>.
 </p>
 
-## Qué añade DSH Desktop
+## Qué añade Aura智能工作台
 
-DeepSeek Harness ya proporciona el Agent Runtime y la Web UI. DSH Desktop añade las capacidades nativas necesarias para un producto de escritorio:
+DeepSeek Harness ya proporciona el Agent Runtime y la Web UI. Aura智能工作台 añade las capacidades nativas necesarias para un producto de escritorio:
 
 - Inicia y detiene Harness sin una CLI separada ni otra pestaña del navegador
 - Usa el selector de directorios del sistema para añadir y administrar espacios de trabajo
@@ -75,7 +75,7 @@ Si Cloudflare no se inicia, la aplicación intenta usar Pinggy. Si aparece el en
 
 ## Modo seguro y recuperación
 
-Si un plugin de terceros impide el inicio o la visualización, DSH Desktop relaciona la evidencia del Runtime y del frontend con los plugins instalados y abre una recuperación guiada.
+Si un plugin de terceros impide el inicio o la visualización, Aura智能工作台 relaciona la evidencia del Runtime y del frontend con los plugins instalados y abre una recuperación guiada.
 
 Elige **Restart as Safe Mode…** en el menú `Harness` para iniciar un Profile aislado con los Bundle oficiales principales. Los plugins externos del Profile normal quedan bloqueados, pero el Agent, las sesiones, los ajustes de modelos y los espacios de trabajo siguen disponibles.
 
@@ -84,7 +84,7 @@ La pantalla de recuperación busca actualizaciones compatibles de los plugins y 
 Si no puedes abrir la interfaz normal, inicia la aplicación con `--safe-mode`. En macOS:
 
 ```sh
-open -a "DSH Desktop" --args --safe-mode
+open -a "Aura" --args --safe-mode
 ```
 
 ## Datos locales y seguridad
@@ -122,6 +122,6 @@ Antes de enviar cambios, ejecuta `npm test`, `npm run typecheck` y `npm run buil
 
 ## Licencia
 
-DSH Desktop se publica bajo la [licencia MIT](LICENSE).
+Aura智能工作台 se publica bajo la [licencia MIT](LICENSE).
 
-DeepSeek Harness y sus dependencias siguen sujetos a sus licencias y políticas de marcas correspondientes. DSH Desktop es una aplicación de escritorio comunitaria independiente.
+DeepSeek Harness y sus dependencias siguen sujetos a sus licencias y políticas de marcas correspondientes. Aura智能工作台 es una aplicación de escritorio comunitaria independiente.

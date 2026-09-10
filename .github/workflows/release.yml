@@ -140,7 +140,7 @@ jobs:
       - name: Verify signed and notarized Apple Silicon app
         if: startsWith(github.ref, 'refs/tags/v') || inputs.prerelease_tag != ''
         run: |
-          app_path="dist/mac-arm64/DSH Desktop.app"
+          app_path="dist/mac-arm64/Aura.app"
           codesign --verify --deep --strict --verbose=2 "$app_path"
           spctl --assess --type execute --verbose=4 "$app_path"
           xcrun stapler validate "$app_path"
@@ -276,7 +276,7 @@ jobs:
       - name: Verify signed and notarized Intel app
         if: startsWith(github.ref, 'refs/tags/v') || inputs.prerelease_tag != ''
         run: |
-          app_path="dist/mac/DSH Desktop.app"
+          app_path="dist/mac/Aura.app"
           codesign --verify --deep --strict --verbose=2 "$app_path"
           spctl --assess --type execute --verbose=4 "$app_path"
           xcrun stapler validate "$app_path"
@@ -349,7 +349,7 @@ jobs:
         if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
         shell: pwsh
         env:
-          SMOKE_EXE: ${{ (startsWith(github.ref, 'refs/tags/v') || inputs.prerelease_tag != '') && 'dist\win-unpacked\DSH Desktop.exe' || 'dist-dev\win-unpacked\DSH Desktop Dev.exe' }}
+          SMOKE_EXE: ${{ (startsWith(github.ref, 'refs/tags/v') || inputs.prerelease_tag != '') && 'dist\win-unpacked\Aura.exe' || 'dist-dev\win-unpacked\Aura Dev.exe' }}
           SMOKE_USERDATA: ${{ (startsWith(github.ref, 'refs/tags/v') || inputs.prerelease_tag != '') && 'dsh-desktop' || 'dsh-desktop-dev' }}
         run: |
           $userData = Join-Path $env:APPDATA $env:SMOKE_USERDATA
@@ -375,7 +375,7 @@ jobs:
             $endpoint = $null
             while ((Get-Date) -lt $deadline) {
               if ($desktop.HasExited) {
-                throw "DSH Desktop Dev exited before Harness was ready (exit code $($desktop.ExitCode))."
+                throw "Aura Dev exited before Harness was ready (exit code $($desktop.ExitCode))."
               }
               if (Test-Path $logPath) {
                 $log = Get-Content -Raw $logPath
@@ -441,7 +441,7 @@ jobs:
               throw 'Harness process exited after workspace and session creation.'
             }
             if ($desktop.HasExited) {
-              throw "DSH Desktop Dev exited after workspace and session creation (exit code $($desktop.ExitCode))."
+              throw "Aura Dev exited after workspace and session creation (exit code $($desktop.ExitCode))."
             }
             Write-Host 'Packaged Windows Harness smoke test passed.'
           } finally {
@@ -538,7 +538,7 @@ jobs:
             --tsmode RFC3161 \
             --tsretries 3 \
             --tsretrywait 10 \
-            --name 'DSH Desktop' \
+            --name 'Aura智能工作台' \
             --url https://www.dshdesktop.com \
             --verbose \
             "$installer"
@@ -666,7 +666,7 @@ jobs:
             gh release create "$RELEASE_TAG" release-assets/* \
               --verify-tag \
               --notes-file "$notes" \
-              --title "DSH Desktop $RELEASE_TAG" \
+              --title "Aura智能工作台 $RELEASE_TAG" \
               --repo "$GITHUB_REPOSITORY"
           fi
       - name: Mirror release assets to ModelScope
@@ -855,7 +855,7 @@ jobs:
               --prerelease \
               --target "$GITHUB_SHA" \
               --generate-notes \
-              --title "DSH Desktop $RELEASE_TAG（预发布）" \
+              --title "Aura智能工作台 $RELEASE_TAG（预发布）" \
               --repo "$GITHUB_REPOSITORY"
           fi
       - name: Mirror pre-release assets to ModelScope

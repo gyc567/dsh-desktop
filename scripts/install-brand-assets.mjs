@@ -36,7 +36,7 @@ function replaceIconLink(contents, file) {
   const matches = contents.match(/<link rel="icon"[^>]*>/gu) ?? []
   if (matches.length !== 1) {
     throw new Error(
-      `Could not update DSH Desktop branding in ${file}: expected one icon link, found ${String(matches.length)}`
+      `Could not update Aura branding in ${file}: expected one icon link, found ${String(matches.length)}`
     )
   }
   return contents.replace(matches[0], desktop)
@@ -58,7 +58,7 @@ function replaceManifestIcon(contents, file) {
   const target = icons.find((icon) => icon?.src === '/dsh-desktop-logo.png')
     ?? icons.find((icon) => typeof icon?.src === 'string' && icon.src.endsWith('favicon.svg'))
   if (target === undefined) {
-    throw new Error(`Could not update DSH Desktop branding in ${file}: no icon entry to replace`)
+    throw new Error(`Could not update Aura branding in ${file}: no icon entry to replace`)
   }
   target.src = '/dsh-desktop-logo.png'
   target.sizes = '1254x1254'
@@ -80,7 +80,7 @@ await writeFile(
   replaceManifestIcon(manifest, path.relative(projectRoot, manifestPath))
 )
 
-console.log(`Installed DSH Desktop brand assets: ${[
+console.log(`Installed Aura brand assets: ${[
   destination,
   lightDestination,
   darkDestination

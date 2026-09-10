@@ -1,5 +1,6 @@
 import { ipcRenderer } from 'electron'
 import { formatZoomPercentage, type DesktopMenuCommand } from '../shared/desktop-menu'
+import { BRAND_NAME } from '../shared/brand'
 
 type MenuEntry =
   | { kind: 'command'; command: DesktopMenuCommand; label: string; shortcut?: string }
@@ -204,7 +205,7 @@ function menuEntries(locale: 'en' | 'zh'): MenuEntry[] {
     { kind: 'zoom', label: zh ? '界面缩放' : 'Interface scale' },
     { kind: 'command', command: 'toggle-fullscreen', label: zh ? '切换全屏' : 'Toggle Full Screen', shortcut: 'F11' },
     { kind: 'separator' },
-    { kind: 'command', command: 'about', label: zh ? '关于 DSH Desktop' : 'About DSH Desktop' },
+    { kind: 'command', command: 'about', label: zh ? `关于 ${BRAND_NAME}` : `About ${BRAND_NAME}` },
     { kind: 'command', command: 'quit', label: zh ? '退出' : 'Exit' }
   ]
 }

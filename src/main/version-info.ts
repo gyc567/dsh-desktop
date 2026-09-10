@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
+import { BRAND_NAME, CONTACT_LINE } from '../shared/brand'
 
 interface PackageMetadata {
   version?: unknown
@@ -36,7 +37,7 @@ export function aboutDetail(
 ): string {
   const harness = harnessVersion ?? (locale === 'zh' ? '未知' : 'Unknown')
   if (locale === 'zh') {
-    return `DSH Desktop 版本：${desktopVersion}\n内置 Harness 版本：${harness}\n\nHarness 随 DSH Desktop 更新。`
+    return `${BRAND_NAME} 版本：${desktopVersion}\n内置 Harness 版本：${harness}\n\nHarness 随 ${BRAND_NAME} 更新。\n${CONTACT_LINE}`
   }
-  return `DSH Desktop version: ${desktopVersion}\nBundled Harness version: ${harness}\n\nHarness is updated with DSH Desktop.`
+  return `${BRAND_NAME} version: ${desktopVersion}\nBundled Harness version: ${harness}\n\nHarness is updated with ${BRAND_NAME}.\n${CONTACT_LINE}`
 }

@@ -1,6 +1,6 @@
 <h1 align="center">
-  <img src="docs/images/readme-logo-black-v020.png" width="64" alt="DSH Desktop ロゴ" valign="middle" />
-  DSH Desktop
+  <img src="docs/images/readme-logo-black-v020.png" width="64" alt="Aura智能工作台 ロゴ" valign="middle" />
+  Aura智能工作台
 </h1>
 
 <p align="center">
@@ -17,14 +17,14 @@
   <img alt="Windows" src="https://img.shields.io/badge/Windows-x64-171513.svg" />
 </p>
 
-![ポータブル Preset、モデルプロバイダー、スマートフォン連携、編集可能な PPTX 生成を備えた DSH Desktop](docs/images/dsh-desktop-hero-v021.png)
+![ポータブル Preset、モデルプロバイダー、スマートフォン連携、編集可能な PPTX 生成を備えた Aura智能工作台](docs/images/dsh-desktop-hero-v021.png)
 
 <p align="center"><strong>DeepSeek 公式モデルや主要なサードパーティーモデルを利用し、ポータブルな Agent Preset を管理し、スマートフォンから Harness セッションを続け、資料から編集可能な PPTX を生成できます。</strong></p>
 
-DSH Desktop は、ローカルの DeepSeek Harness をインストール可能なデスクトップアプリとして提供します。Harness を自動起動し、Profile、プラグイン、ワークスペース、モデル設定、セッションをアプリ本体とは別の場所に保存し、ローカル Runtime の準備が整うと完全な Harness 画面を開きます。
+Aura智能工作台 は、ローカルの DeepSeek Harness をインストール可能なデスクトップアプリとして提供します。Harness を自動起動し、Profile、プラグイン、ワークスペース、モデル設定、セッションをアプリ本体とは別の場所に保存し、ローカル Runtime の準備が整うと完全な Harness 画面を開きます。
 
 > [!IMPORTANT]
-> DSH Desktop は、急速に進化している `@deepseek-ai/dsh@0.1.2-rc.1` を基盤とする早期プレビューです。macOS 版はコード署名と Apple 公証済みです。Windows x64 インストーラーもコード署名済みですが、発行元のダウンロード・インストール実績が蓄積されるまでは Windows のセキュリティ警告が表示される場合があります。
+> Aura智能工作台 は、急速に進化している `@deepseek-ai/dsh@0.1.2-rc.1` を基盤とする早期プレビューです。macOS 版はコード署名と Apple 公証済みです。Windows x64 インストーラーもコード署名済みですが、発行元のダウンロード・インストール実績が蓄積されるまでは Windows のセキュリティ警告が表示される場合があります。
 
 ## ダウンロード
 
@@ -37,14 +37,14 @@ DSH Desktop は、ローカルの DeepSeek Harness をインストール可能�
 ## コミュニティ
 
 <p align="center">
-  下の QR コードを WeChat で読み取り、DSH Desktop コミュニティグループに参加してください。<br />
-  <img src="docs/images/wechat-group-20260815.png" width="220" alt="DSH Desktop WeChat グループの QR コード" /><br />
-  Discord を利用する場合は、<a href="https://discord.gg/he2gAKCpj">DSH Desktop Discord コミュニティ</a>にも参加できます。
+  下の QR コードを WeChat で読み取り、Aura智能工作台 コミュニティグループに参加してください。<br />
+  <img src="docs/images/wechat-group-20260815.png" width="220" alt="Aura智能工作台 WeChat グループの QR コード" /><br />
+  Discord を利用する場合は、<a href="https://discord.gg/he2gAKCpj">Aura智能工作台 Discord コミュニティ</a>にも参加できます。
 </p>
 
-## DSH Desktop が追加する機能
+## Aura智能工作台 が追加する機能
 
-DeepSeek Harness は Agent Runtime と Web UI を提供します。DSH Desktop は、その上にデスクトップ製品として必要なホスト機能を追加します。
+DeepSeek Harness は Agent Runtime と Web UI を提供します。Aura智能工作台 は、その上にデスクトップ製品として必要なホスト機能を追加します。
 
 - 別の CLI やブラウザータブを必要とせず Harness を起動・終了
 - OS 標準のディレクトリ選択画面でプロジェクトワークスペースを追加・管理
@@ -74,7 +74,7 @@ Cloudflare の起動に失敗すると Pinggy を試します。Cloudflare の�
 
 ## セーフモードと復旧
 
-サードパーティープラグインが起動や画面表示を妨げた場合、DSH Desktop は Runtime とフロントエンドの証拠から関連プラグインを特定し、ガイド付き復旧画面を開きます。
+サードパーティープラグインが起動や画面表示を妨げた場合、Aura智能工作台 は Runtime とフロントエンドの証拠から関連プラグインを特定し、ガイド付き復旧画面を開きます。
 
 `Harness` メニューの **Restart as Safe Mode…** を選ぶと、公式コア Bundle だけを含む隔離 Profile で起動します。通常 Profile のサードパーティープラグインは停止しますが、Agent、セッション、モデル設定、ワークスペースは引き続き利用できます。
 
@@ -83,7 +83,7 @@ Cloudflare の起動に失敗すると Pinggy を試します。Cloudflare の�
 通常画面を開けない場合は `--safe-mode` を指定できます。macOS の例：
 
 ```sh
-open -a "DSH Desktop" --args --safe-mode
+open -a "Aura" --args --safe-mode
 ```
 
 ## ローカルデータとセキュリティ
@@ -121,6 +121,6 @@ Harness にはターゲット固有のネイティブ依存関係が含まれる
 
 ## ライセンス
 
-DSH Desktop は [MIT License](LICENSE) のもとで公開されています。
+Aura智能工作台 は [MIT License](LICENSE) のもとで公開されています。
 
-DeepSeek Harness とその依存関係には、それぞれの上流ライセンスと商標ポリシーが適用されます。DSH Desktop は独立したコミュニティデスクトップアプリです。
+DeepSeek Harness とその依存関係には、それぞれの上流ライセンスと商標ポリシーが適用されます。Aura智能工作台 は独立したコミュニティデスクトップアプリです。

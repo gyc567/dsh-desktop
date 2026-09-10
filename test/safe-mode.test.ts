@@ -10,8 +10,8 @@ import {
 
 describe('Safe Mode', () => {
   it('is opt-in through an exact command-line switch', () => {
-    expect(shouldStartInSafeMode(['DSH Desktop', '--safe-mode'])).toBe(true)
-    expect(shouldStartInSafeMode(['DSH Desktop', '--safe-mode=false'])).toBe(false)
+    expect(shouldStartInSafeMode(['Aura', '--safe-mode'])).toBe(true)
+    expect(shouldStartInSafeMode(['Aura', '--safe-mode=false'])).toBe(false)
   })
 
   it('shows static references as informational findings without blocking or selecting a repair', () => {
@@ -60,7 +60,7 @@ describe('Safe Mode', () => {
       applyLabel: 'Remove selected plugins',
       agentLabel: 'Close',
       restartLabel: 'Exit Safe Mode and restart',
-      quitLabel: 'Quit DSH Desktop'
+      quitLabel: 'Quit Aura智能工作台'
     })
   })
 

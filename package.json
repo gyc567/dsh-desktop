@@ -1,11 +1,11 @@
 {
   "name": "dsh-desktop",
   "version": "0.1.1",
-  "description": "A cross-platform desktop shell for DeepSeek Harness.",
+  "description": "A cross-platform desktop shell for DeepSeek Harness, branded as Aura智能工作台.",
   "private": true,
   "type": "module",
   "main": "./out/main/index.js",
-  "author": "DataElement",
+  "author": "Eric",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -301,7 +301,7 @@
   },
   "build": {
     "appId": "io.dsh.desktop",
-    "productName": "DSH Desktop",
+    "productName": "Aura",
     "asar": false,
     "npmRebuild": false,
     "compression": "maximum",

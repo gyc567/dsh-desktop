@@ -7,7 +7,7 @@
       http-equiv="Content-Security-Policy"
       content="default-src 'none'; img-src 'self' file:; style-src 'unsafe-inline'; script-src 'unsafe-inline'"
     />
-    <title>DSH Desktop Safe Mode</title>
+    <title>Aura Safe Mode</title>
     <style>
       :root {
         color-scheme: light dark;
@@ -26,6 +26,7 @@
       .brand { display: flex; align-items: center; gap: 11px; }
       .brand img { width: 28px; height: 28px; border-radius: 8px; }
       .brand-name { font-size: 14px; font-weight: 650; }
+      .brand-contact { color: var(--muted); font-size: 11px; font-weight: 500; }
       .badge { padding: 2px 8px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font-size: 11px; font-weight: 600; }
       .close { width:32px; height:32px; display:grid; place-items:center; padding:0; border:0; border-radius:9px; color:var(--muted); background:transparent; cursor:pointer; font-size:25px; font-weight:300; line-height:1; }
       .close:hover { color:var(--ink); background:var(--soft); }
@@ -112,7 +113,7 @@
   <body>
     <main class="shell" role="dialog" aria-modal="true" aria-labelledby="badge">
       <header class="header">
-        <div class="brand"><img id="icon" alt="" /><span class="brand-name" id="brand"></span><span class="badge" id="badge"></span></div>
+        <div class="brand"><img id="icon" alt="" /><span class="brand-name" id="brand"></span><span class="brand-contact" id="contact"></span><span class="badge" id="badge"></span></div>
         <button class="close" id="agent" type="button" aria-label="Close">×</button>
       </header>
       <section class="content">
@@ -165,10 +166,11 @@
       const model = JSON.parse(params.get('state') || '{}')
       document.documentElement.lang = model.locale === 'zh' ? 'zh-CN' : 'en'
       document.documentElement.dataset.theme = params.get('theme') || 'system'
-      document.title = `${model.badge || 'Safe Mode'} · ${model.brand || 'DSH Desktop'}`
+      document.title = `${model.badge || 'Safe Mode'} · ${model.brand || 'Aura智能工作台'}`
       const setText = (id, value) => { const node = document.getElementById(id); if (node) node.textContent = value || '' }
       document.getElementById('icon').src = params.get('icon') || 'icon.png'
       setText('brand', model.brand)
+      setText('contact', model.contact)
       setText('badge', model.badge)
       setText('heading', model.heading)
       setText('summary', model.summary)

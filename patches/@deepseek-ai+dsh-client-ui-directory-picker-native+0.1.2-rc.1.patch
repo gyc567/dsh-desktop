@@ -9,7 +9,7 @@ index 556b9a0..2986e29 100644
 -			const injected = () => ({ pick: () => ctx.uiWorkspace.pickDirectory() });
 +			const injected = () => ({ pick: () => {
 +				const bridge = window.dshDesktopDirectoryPicker;
-+				if (!bridge || typeof bridge.pick !== "function") return Promise.reject(new Error("DSH Desktop directory picker bridge is unavailable"));
++				if (!bridge || typeof bridge.pick !== "function") return Promise.reject(new Error("Aura directory picker bridge is unavailable"));
 +				return bridge.pick();
 +			} });
  			ctx.slots.inject("conversation.hero.workspace.directoryFlow", () => ctx.slots.inject("sidebar.workspaces.directoryFlow", function* () {
