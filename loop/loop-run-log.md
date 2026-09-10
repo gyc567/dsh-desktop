@@ -4,6 +4,14 @@
 
 ## 2026-09-10
 
+### Run #8 — release-verify CI 全平台打包（mac + win）· L2 · 手动触发
+- started: 2026-09-11，人类要求产出 mac 与 win 安装文件并存放 GitHub 远程仓库
+- 路径决策：本机只能出 mac arm64（verify-target.mjs 拒绝跨平台构建，原生依赖 koffi 需目标机编译）；
+  win 安装包必须走 CI Windows runner。release.yml 支持 workflow_dispatch target=all，
+  无 tag 的 dispatch 上传 actions/upload-artifact（run 页可下载，不落 Release 页）；
+  签名步骤随 tag 门禁自动跳过（无证书，预期内，产物不可对外分发）
+- acted: 待记录
+
 ### Run #7 — 进度同步检查 · L2 · 手动触发
 - started: 2026-09-10，人类要求"记录进度 + push to remote"
 - found: 工作区干净（git status 无变更），本地 main 与 origin/main 均已指向 b5f2bf7 —
