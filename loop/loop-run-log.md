@@ -4,6 +4,21 @@
 
 ## 2026-09-10
 
+### Run #4 — daily-triage workflow_dispatch 线上验证 · L1
+- started: 2026-09-10，触发方式 `gh workflow run loop-daily.yml --ref main`
+- 第一轮（run 34492514808）: **failure —— 首次真实触发抓到环境差异**：快照步骤成功且
+  ESCALATED=true 正确触发，但 escalation 步骤报 `repository has disabled issues`。
+  根因：上游仓库关闭 issues，此前所有设计假设 issue 追踪器可用。修复：人类决策启用
+  issues（gh repo edit --enable-issues，已确认 hasIssuesEnabled=true）
+- 第二轮（run 34492617701）: **全步骤 success**；escalation 按契约创建追踪 issue
+  [#1 🔄 Loop daily-triage escalations](https://github.com/gyc567/dsh-desktop/issues/1)
+  （loop-daily label，下次有 escalation 将改为评论而非新开）
+- verified: gh 数据查询在 CI 语境下真实返回（CI 运行列表含首轮 failure 记录、open issue=1、
+  open PR=0）；escalation gate "无发现零打扰"的反向路径（有发现必写）已验证
+- found: 同 Run #3（audit high 4、文档漂移 1 项 —— 已 escalated，待人工修 development.md）
+- escalated: 无新增
+- 结果: PASS（端到端线上验证完成）；tokens(约): 20k
+
 ### Run #3 — daily-triage 上线（L1 只报告）· 手动触发
 - started: 2026-09-10，执行器 Kimi Code（人工监督）
 - acted: ①项目适配版模式文档 `loop/patterns/daily-triage.md` ②执行技能 `loop/skills/loop-triage/SKILL.md`
@@ -17,7 +32,7 @@
   README parity 通过；STATE.md age 0 天
 - escalated: 文档漂移（已记入 STATE 待办队列 [escalated]）；audit 4 high 转 [info] 跟踪
 - 已知限制: 本地 gh 未认证 → CI/Issue/PR 区显示 unavailable；CI 中 GITHUB_TOKEN 可用
-- 结果: PASS（上线就绪，推送后 Action 生效）；tokens(约): 90k
+- 结果: PASS — 已推送 origin/main（4ddb3a6），Action 每日 UTC 07:23（北京 15:23）自动运行，支持手动触发；tokens(约): 90k
 
 ### Run #2 — release-verify（提交与推送门禁）· L2 · 手动触发
 - started: 2026-09-10，执行器 Kimi Code（人工监督）

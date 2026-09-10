@@ -28,9 +28,14 @@
 
 ## 最近巡检
 
+- 2026-09-10 daily-triage **线上验证通过**（workflow_dispatch × 2，Run #4）：
+  CI 成功 / Issues 1 open（= 循环追踪 issue #1）/ PRs 0 open / audit high+critical 4 /
+  major 过期 7 / 文档漂移 1 项（escalated → issue #1）/ README parity 通过 / STATE age 0 天
 - 2026-09-10 daily-triage 首次快照（本地干跑）：Issues 0 open / PRs 0 open /
   audit high+critical 4 / major 过期 7 / **文档漂移 1 项（escalated）** / README parity 通过 /
   STATE.md age 0 天。明日起由 GitHub Actions 每日 UTC 07:23 自动执行。
+- 环境变更记录：本仓库 issues 原为禁用（上游继承），已于 Run #4 启用——
+  这是循环的 escalation 通道，也是未来的 issue-triage 模式的前置条件。
 
 ## 已完成（近期）
 
