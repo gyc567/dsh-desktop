@@ -32,6 +32,26 @@
 
 ## 2026-09-11
 
+### Run #12 — 自动更新源改指 fork · L2 · 手动触发
+- started: 2026-09-11，执行 Run #11 报告中的修复方向 1
+- found（实施中确认）: 初始更新源不只在 version-catalog.ts —— package.json `build.publish.url`
+  会固化进打包产物的 app-update.yml，三层必须一起改（catalog 常量 / publish 配置 / index 脚本）
+- acted:
+  ①package.json build.publish.url → `github.com/gyc567/dsh-desktop/releases/latest/download/`
+  ②version-catalog.ts：STABLE_FEED_URL 同上；VERSION_INDEX_URL → raw.githubusercontent
+    `main/updates/versions.json`；archiveFeedUrl → `releases/download/v<version>/`
+  ③新建 updates/versions.json（种子条目 0.1.1-aura.5，含 tag 与 archiveUrl）
+  ④scripts/build-version-index.mjs archiveUrl 模板同步；version-catalog / build-version-index /
+    release 三处测试断言同步
+- verified: 778/778 测试通过；`curl -sIL releases/latest/download/latest-mac.yml` = 200
+  （GitHub 302 → 真实资产，generic provider 兼容）；versions.json 推送后 raw 200
+  （GitHub API contents 先确认、raw CDN 约 1 分钟传播延迟）
+- found（遗留，升级为新的最高优先）: **已外发的 v0.1.1-aura.5 安装包内嵌旧上游 feed**
+  （app-update.yml 打包时固化），仍会被上游 0.8.1 拉走 —— 需打 v0.1.1-aura.6 重出包覆盖；
+  另：fork 无签名，Squirrel.Mac 对更新包签名校验必失败，自动安装链路实际仍不可用
+  （拉取/下载会发生，quitAndInstall 会失败）——配齐证书前更新功能仅为"检查提示"
+- 结果: PASS — 代码修复 355a25a 已推 origin/main；tokens(约): 35k
+
 ### Run #11 — mac 安装包"已损坏"报错审计 · L1 只报告 · 手动触发
 - started: 2026-09-11，人类反馈 Aura-mac-arm64.dmg 安装后报"已损坏，无法打开"
 - verified（本机实测，releases/latest 的 aura-mac-arm64.dmg）:
