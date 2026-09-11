@@ -326,8 +326,11 @@ jobs:
     steps:
       - name: Validate Windows signing secret
         id: windows_signing_secrets
+        shell: bash
+        env:
+          WINDOWS_SIGNING_PIN: ${{ secrets.DESKTOP_WINDOWS_SIGNING_PIN }}
         run: |
-          if [ -z "${{ secrets.DESKTOP_WINDOWS_SIGNING_PIN }}" ]; then
+          if [ -z "$WINDOWS_SIGNING_PIN" ]; then
             echo "::warning::Missing DESKTOP_WINDOWS_SIGNING_PIN; the self-hosted UKey signing job will be skipped."
             echo "missing=1" >> "$GITHUB_OUTPUT"
           else
