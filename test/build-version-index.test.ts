@@ -44,7 +44,7 @@ describe('buildVersionIndex', () => {
     expect(entry).toEqual({
       version: '3.4.5',
       tag: 'v3.4.5',
-      archiveUrl: 'https://dshdesktop.com/updates/archive/3.4.5/'
+      archiveUrl: 'https://github.com/gyc567/dsh-desktop/releases/download/v3.4.5/'
     })
   })
 

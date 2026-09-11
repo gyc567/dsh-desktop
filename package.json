@@ -380,7 +380,7 @@
     "publish": [
       {
         "provider": "generic",
-        "url": "https://dshdesktop.com/updates/latest/"
+        "url": "https://github.com/gyc567/dsh-desktop/releases/latest/download/"
       }
     ],
     "detectUpdateChannel": false,
