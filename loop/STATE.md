@@ -15,17 +15,27 @@
 
 ## 待办队列（按优先级）
 
-1. [escalated] 文档漂移：`docs/development.md` 仍写 `@deepseek-ai/dsh@0.1.1-rc.2`，
+1. [done] CI 全平台打包 + 正式 release 上线 — 2026-09-11 ✅（Run #8/#9）
+   - https://github.com/gyc567/dsh-desktop/releases/latest = v0.1.1-aura.5，
+     12 资产（mac arm64/x64 dmg+zip+blockmap、win exe+blockmap、4 个 latest*.yml），未签名仅供测试
+   - 修复 4 个真实缺陷：preload 跨入口 chunk（6234916）、Apple secrets 硬失败（27eb277）、
+     UKey self-hosted job 无限排队（c5c0884）、Windows runner pwsh 语法（6605dd9）
+2. [escalated] 文档漂移：`docs/development.md` 仍写 `@deepseek-ai/dsh@0.1.1-rc.2`，
    实际 pin 是 0.1.2-rc.1（daily-triage Run #3 首次快照发现，人工修复后该项即转绿）
-2. [info] npm audit 4 个 high（dsh-ppt/pptxgenjs 传递依赖，`fixAvailable: false`）—
+3. [info] npm audit 4 个 high（dsh-ppt/pptxgenjs 传递依赖，`fixAvailable: false`）—
    上游修复前持续跟踪，不阻断
-3. [done] 安装包文件名已统一切换为 aura-mac-arm64.* / aura-windows-*-setup.exe（Run #6，
-   4ddb3a6 之后的提交；已清 dist 重建验证）。首个 CI release 留意 latest.yml 指向新文件名
-4. [manual] dmg 安装冒烟（人类已认领，进行中）
+4. [manual] dmg 安装冒烟（人类已认领，进行中）—— 现可直接用 releases/latest 的 aura-mac-arm64.dmg
 5. [manual] 替换正式设计 logo（换 build/ 下 PNG + 重跑 install-brand-assets）
-6. （后续）contract-guard / patch-sentinel 上线（第 2-4 周）
+6. [infra] 配齐 DESKTOP_* Apple secrets + DESKTOP_WINDOWS_SIGNING_PIN（+ UKey self-hosted runner）
+   后，publish 链恢复全自动发布并出签名包；届时 Run #9 的手动发布流程退役
+7. （后续）contract-guard / patch-sentinel 上线（第 2-4 周）
 
 ## 最近巡检
+
+- 2026-09-11 Run #9 手动发布：releases/latest 已解析（v0.1.1-aura.5，非 prerelease），12 资产齐备，
+  verify-release-assets 本地校验通过，版本号三平台一致（0.1.1-aura.5）
+- 2026-09-11 Run #8 CI 全平台打包：tag v0.1.1-aura.5 → run 34548803084 三平台全绿；
+  旧 tag aura.1~aura.3 的 releases 页无产物（publish 链被 UKey job 堵死，已根治）
 
 - 2026-09-10 daily-triage **线上验证通过**（workflow_dispatch × 2，Run #4）：
   CI 成功 / Issues 1 open（= 循环追踪 issue #1）/ PRs 0 open / audit high+critical 4 /

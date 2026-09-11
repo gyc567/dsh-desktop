@@ -20,7 +20,32 @@
     run 被 "Sign Windows package locally with UKey" job 永久排队卡死（self-hosted runner 不存在，
     cancel 请求不被处理）→ c5c0884 给 windows-x64 加 windows_signing_secrets 校验输出，
     sign-windows job 缺 DESKTOP_WINDOWS_SIGNING_PIN 时整体跳过（publish 链保持原样，fork 走手动发布）
-  ⑤tag v0.1.1-aura.4（c5c0884）重新触发，后台监视 run 34548215276 中
+  ⑤tag v0.1.1-aura.4（c5c0884）重新触发 —— 门控生效（UKey job 正常 skipped），但 Windows job
+    第 2 步死在 pwsh：`if [ -z ... ]` bash 语法在 Windows runner 默认 PowerShell 下解析失败 →
+    6605dd9 补 `shell: bash`（并改 env 传 secret，避免脚本内插值）
+- verified: tag v0.1.1-aura.5（6605dd9）→ run 34548803084 **三平台全绿**（mac arm64 / mac intel / win x64），
+  UKey 与两个 publish job 按预期 skipped；`verify-release-assets.mjs` 本地验证 11 资产版本一致（0.1.1-aura.5）
+- found: Intel DMG 构建 hdiutil detach "Resource busy" 为 GitHub runner 已知偶发 flake，非代码缺陷，
+  重跑即恢复；publish 链保持依赖 sign-windows success，fork 无签名时自动发布仍不可用 → 转 Run #9 手动发布
+- 结果: PASS — CI 全平台打包链路修复完成（4 个真实缺陷：preload chunk / Apple secrets 硬失败 /
+  UKey 无限排队 / pwsh shell），全部已修并验证；tokens(约): 80k
+
+## 2026-09-11
+
+### Run #9 — 手动发布正式安装包到 releases/latest · L2 · 手动触发
+- started: 2026-09-11，人类要求 releases/latest 出现正确的 mac + win 安装包（此前该页为空或只有错误产物）
+- acted:
+  ①从 run 34548803084 下载三产物 artifact（mac arm64 / mac x64 / windows-x64-unsigned）共 11 文件
+  ②本地运行 merge-mac-update-metadata.mjs 合并 latest-mac.yml，verify-release-assets.mjs 校验通过
+  ③`gh release create v0.1.1-aura.5` —— 未加 --prerelease（加了 /releases/latest 不解析），
+    release notes 标注未签名 + macOS xattr 绕过 quarantine + 联系方式
+- verified: `gh api repos/gyc567/dsh-desktop/releases/latest` → tag=v0.1.1-aura.5，prerelease=false，
+  draft=false，12 资产齐备（2 dmg + 2 zip + 2 blockmap + exe + blockmap + 4 个 latest*.yml）
+- escalated:
+  ①未签名构建不可对外分发 —— 长期：配齐 6 个 DESKTOP_* Apple secrets + DESKTOP_WINDOWS_SIGNING_PIN
+    （+ UKey self-hosted runner）即可恢复 publish 链全自动发布；②Intel hdiutil flake 若频繁可给
+    dmg 构建加重试；③docs/development.md 版本漂移与 audit 4 high 维持 [escalated]/[info] 跟踪
+- 结果: PASS — https://github.com/gyc567/dsh-desktop/releases/latest 正式可下载；tokens(约): 30k
 
 ### Run #7 — 进度同步检查 · L2 · 手动触发
 - started: 2026-09-10，人类要求"记录进度 + push to remote"
