@@ -434,7 +434,7 @@ describe('GitHub release contract', () => {
       /macos-intel:\r?\n\s+name: macOS Intel\r?\n(?:[\s\S]*?)runs-on: macos-15-intel\r?\n(?:\s+outputs:\r?\n(?:[\s\S]*?))?\s+steps:/
     )
     expect(workflow).toMatch(
-      /windows-x64:\r?\n\s+name: Windows x64\r?\n(?:[\s\S]*?)runs-on: windows-2022\r?\n\s+steps:/
+      /windows-x64:\r?\n\s+name: Windows x64\r?\n(?:[\s\S]*?)runs-on: windows-2022\r?\n(?:\s+outputs:\r?\n(?:[\s\S]*?))?\s+steps:/
     )
   })
 
@@ -451,6 +451,7 @@ describe('GitHub release contract', () => {
     expect(workflow).toContain('--storepass "file:$pin_file"')
     expect(workflow).toContain('--tsmode RFC3161')
     expect(workflow).toContain('secrets.DESKTOP_WINDOWS_SIGNING_PIN')
+    expect(workflow).toContain('needs.windows-x64.outputs.windows_signing_pin_missing')
     expect(workflow).toContain(`printf '%s' "$WINDOWS_SIGNING_PIN" > "$pin_file"`)
     expect(workflow).toContain('unset WINDOWS_SIGNING_PIN')
     expect(workflow).not.toContain('security find-generic-password')
