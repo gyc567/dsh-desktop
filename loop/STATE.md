@@ -15,6 +15,10 @@
 
 ## 待办队列（按优先级）
 
+0. [escalated] **自动更新源仍指向上游** `dshdesktop.com/updates/latest/`（version-catalog.ts:5）——
+   Aura 启动会拉取上游 DSH Desktop 0.8.1 并尝试自更新覆盖（Run #11 实测，仅因签名校验偶然失败）。
+   修复：STABLE_FEED_URL/VERSION_INDEX_URL 指向 gyc567 fork 的 GitHub releases，
+   或 fork 构建直接禁用 autoUpdater。修复前 releases 的包不要扩大分发
 1. [done] CI 全平台打包 + 正式 release 上线 — 2026-09-11 ✅（Run #8/#9）
    - https://github.com/gyc567/dsh-desktop/releases/latest = v0.1.1-aura.5，
      12 资产（mac arm64/x64 dmg+zip+blockmap、win exe+blockmap、4 个 latest*.yml），未签名仅供测试

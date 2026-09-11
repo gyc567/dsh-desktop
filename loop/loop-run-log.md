@@ -32,6 +32,23 @@
 
 ## 2026-09-11
 
+### Run #11 — mac 安装包"已损坏"报错审计 · L1 只报告 · 手动触发
+- started: 2026-09-11，人类反馈 Aura-mac-arm64.dmg 安装后报"已损坏，无法打开"
+- verified（本机实测，releases/latest 的 aura-mac-arm64.dmg）:
+  ①sha256 与 GitHub asset digest 一致 —— 下载/传输无损
+  ②`codesign -dv`：adhoc + linker-signed，Sealed Resources=none，TeamIdentifier=not set（无证书预期内）
+  ③`spctl -a`：拒绝，"code has no resources but signature indicates they must be present"
+  ④无隔离属性时 App 正常启动 —— 二进制本身完好，"已损坏"是 Gatekeeper 对带 quarantine
+    的未签名 App 的拒绝话术（macOS Sequoia 起不再区分"未验证开发者"）
+  ⑤xattr -cr 去 quarantine 后可正常运行
+- found（严重，新缺陷）: **自动更新源仍指向上游 dshdesktop.com/updates/latest/**（version-catalog.ts:5），
+  启动即拉到上游 DSH Desktop 0.8.1 并尝试替换 Aura —— 仅因签名校验偶然失败才没换成。
+  修复方向：STABLE_FEED_URL 指向 fork 的 GitHub releases latest/download，或 fork 构建禁用 autoUpdater
+- found（次要）: 上游 latest-mac.yml 与 0.8.1 zip 的 sha512 也不匹配（上游自身问题），
+  差异更新自动回退全量 —— 佐证该更新源不可信
+- acted: 仅报告 + 落盘（L1 模式不改代码）；修复方案见 STATE 待办 #1
+- 结果: PASS（根因定位完成）；tokens(约): 25k
+
 ### Run #10 — 进度同步检查 · L2 · 手动触发
 - started: 2026-09-11，人类要求"记录进度 + push to remote"
 - found: 工作区干净（git status 无变更），本地 main 与 origin/main 均指向 a442227 —
