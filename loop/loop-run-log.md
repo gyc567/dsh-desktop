@@ -32,6 +32,13 @@
 
 ## 2026-09-11
 
+### Run #13 — v0.1.1-aura.6 重出包（覆盖内嵌旧更新源的 aura.5）· L2 · 手动触发
+- started: 2026-09-11，Run #12 遗留：外发 aura.5 包内嵌上游更新源，须重出包覆盖 releases/latest
+- acted: tag v0.1.1-aura.6 打在 2bdcf8e（含 Run #12 更新源修复），推送触发 CI；后台监视中
+- 待办: 构建完成后 → 下载三产物 + 合并 latest-mac.yml + verify → gh release create
+  （替换 latest）→ updates/versions.json 补 aura.6 条目 → loop 落盘
+- 结果: 进行中
+
 ### Run #12 — 自动更新源改指 fork · L2 · 手动触发
 - started: 2026-09-11，执行 Run #11 报告中的修复方向 1
 - found（实施中确认）: 初始更新源不只在 version-catalog.ts —— package.json `build.publish.url`
