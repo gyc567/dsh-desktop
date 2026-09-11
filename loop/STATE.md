@@ -15,10 +15,7 @@
 
 ## 待办队列（按优先级）
 
-0. [escalated] **已外发的 v0.1.1-aura.5 安装包内嵌旧上游更新源**（app-update.yml 打包时固化，
-   仍指向 dshdesktop.com，会被上游 0.8.1 拉走）——修复代码已落（Run #12，355a25a），
-   **需打 v0.1.1-aura.6 重出包覆盖 releases/latest**。顺带把 updates/versions.json 补 aura.6 条目
-   （手工或CI；脚本 build-version-index.mjs 已同步新 URL 格式）
+0. [done] 更新源隐患根除 — 2026-09-11 ✅（Run #12 修复 355a25a + Run #13 重出包 aura.6）
 1. [done] CI 全平台打包 + 正式 release 上线 — 2026-09-11 ✅（Run #8/#9）
    - https://github.com/gyc567/dsh-desktop/releases/latest = v0.1.1-aura.5，
      12 资产（mac arm64/x64 dmg+zip+blockmap、win exe+blockmap、4 个 latest*.yml），未签名仅供测试

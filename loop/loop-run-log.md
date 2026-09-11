@@ -35,9 +35,12 @@
 ### Run #13 — v0.1.1-aura.6 重出包（覆盖内嵌旧更新源的 aura.5）· L2 · 手动触发
 - started: 2026-09-11，Run #12 遗留：外发 aura.5 包内嵌上游更新源，须重出包覆盖 releases/latest
 - acted: tag v0.1.1-aura.6 打在 2bdcf8e（含 Run #12 更新源修复），推送触发 CI；后台监视中
-- 待办: 构建完成后 → 下载三产物 + 合并 latest-mac.yml + verify → gh release create
-  （替换 latest）→ updates/versions.json 补 aura.6 条目 → loop 落盘
-- 结果: 进行中
+- verified: run 34588865817 三平台全绿（UKey/publish 按预期 skipped）；
+  merge-mac-update-metadata + verify-release-assets 校验 0.1.1-aura.6 通过；
+  `gh release create v0.1.1-aura.6` → releases/latest 已切换（12 资产，prerelease=false）；
+  **抽验新 DMG 内 app-update.yml：url 已指向 github.com/gyc567/dsh-desktop/releases/latest/download/**
+  —— Run #12 的修复在产物内生效；updates/versions.json 补 aura.6 + aura.5 两条目
+- 结果: PASS — 外发安装包更新源隐患已根除（aura.5 包作废，latest 现为 aura.6）；tokens(约): 25k
 
 ### Run #12 — 自动更新源改指 fork · L2 · 手动触发
 - started: 2026-09-11，执行 Run #11 报告中的修复方向 1
