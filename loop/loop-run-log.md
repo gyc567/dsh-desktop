@@ -10,7 +10,17 @@
   win 安装包必须走 CI Windows runner。release.yml 支持 workflow_dispatch target=all，
   无 tag 的 dispatch 上传 actions/upload-artifact（run 页可下载，不落 Release 页）；
   签名步骤随 tag 门禁自动跳过（无证书，预期内，产物不可对外分发）
-- acted: 待记录
+- acted:
+  ①tag v0.1.1-aura.1 首跑暴露 preload 跨平台 bug：品牌改造使 preload/windows-menu 共享 chunk，
+    Electron 沙箱 preload 无法 require chunk（6234916 修复：electron.vite 虚拟模块按入口内联 brand）
+  ②tag v0.1.1-aura.2 跑通 win 构建但 tag 构建硬失败于 Apple secrets 校验（fork 无 6 个 DESKTOP_* secret）——
+    27eb277 改优雅降级（warning + outputs 门控签名/公证步骤，无证书自动产未签名包）
+  ③test/release.test.ts 结构断言未同步（431/434 正则不允许 outputs 段）→ 7762210 放宽
+  ④run 34544374734：win ✅ / mac arm64 ✅ / **mac intel ❌（hdiutil detach "Resource busy" 偶发 flake）**；
+    run 被 "Sign Windows package locally with UKey" job 永久排队卡死（self-hosted runner 不存在，
+    cancel 请求不被处理）→ c5c0884 给 windows-x64 加 windows_signing_secrets 校验输出，
+    sign-windows job 缺 DESKTOP_WINDOWS_SIGNING_PIN 时整体跳过（publish 链保持原样，fork 走手动发布）
+  ⑤tag v0.1.1-aura.4（c5c0884）重新触发，后台监视 run 34548215276 中
 
 ### Run #7 — 进度同步检查 · L2 · 手动触发
 - started: 2026-09-10，人类要求"记录进度 + push to remote"
