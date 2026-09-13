@@ -1,12 +1,10 @@
 import { describe, expect, it } from 'vitest'
-import { readFile } from 'node:fs/promises'
-import { mkdtemp, cp, readFile as readTmp } from 'node:fs/promises'
+import { cp, mkdtemp, readFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { pathToFileURL } from 'node:url'
 import { versionCodeFrom } from '../mobile/scripts/set-version.mjs'
 
-const projectRoot = join(__dirname, '..')
+const projectRoot = join(import.meta.dirname, '..')
 
 const load = () =>
   readFile(join(projectRoot, '.github', 'workflows', 'mobile-android.yml'), 'utf8')
@@ -67,6 +65,17 @@ describe('mobile shell package', () => {
     expect(gradle).toContain('applicationId "com.aura.mobile"')
   })
 
+  it('hardens the local pair screen (CSP) and ships a sane version fallback', async () => {
+    const index = await readFile(join(projectRoot, 'mobile', 'www', 'index.html'), 'utf8')
+    expect(index).toContain('Content-Security-Policy')
+    expect(index).toContain('<!--VERSION:dev-->')
+
+    const app = await readFile(join(projectRoot, 'mobile', 'www', 'app.js'), 'utf8')
+    expect(app).not.toContain('innerHTML')
+    // The history write must complete before navigation tears the context down
+    expect(app).toContain('await saveToHistory(url)')
+  })
+
   it('keeps the shell dependency-free of desktop-only code', async () => {
     const pkg = JSON.parse(
       await readFile(join(projectRoot, 'mobile', 'package.json'), 'utf8')
@@ -88,6 +97,12 @@ describe('set-version script', () => {
     expect(versionCodeFrom('v0.1.1-aura.6')).toBe(10106)
   })
 
+  it('rejects versions that would collide or do not parse cleanly', () => {
+    // 0.1.1-aura.105 would collide with 0.1.2-aura.5 (both versionCode 10205)
+    expect(() => versionCodeFrom('0.1.1-aura.105')).toThrow('collide')
+    expect(() => versionCodeFrom('0.1.2-aura.5')).not.toThrow()
+  })
+
   it('stamps build.gradle and the pair screen marker on fixture copies', async () => {
     const { setVersion } = await import('../mobile/scripts/set-version.mjs')
     const fixture = await mkdtemp(join(tmpdir(), 'aura-mobile-version-'))
@@ -100,13 +115,14 @@ describe('set-version script', () => {
 
     await setVersion('0.1.1-aura.6', fixture)
 
-    const gradle = await readTmp(join(fixture, 'android', 'app', 'build.gradle'), 'utf8')
+    const gradle = await readFile(join(fixture, 'android', 'app', 'build.gradle'), 'utf8')
     expect(gradle).toContain('versionCode 10106')
     expect(gradle).toContain('versionName "0.1.1-aura.6"')
-    const index = await readTmp(join(fixture, 'www', 'index.html'), 'utf8')
+    const index = await readFile(join(fixture, 'www', 'index.html'), 'utf8')
     expect(index).toContain('Aura 移动壳 v0.1.1-aura.6')
-    expect(index).not.toContain('<!--VERSION-->')
+    expect(index).not.toMatch(/<!--VERSION/)
 
     await expect(setVersion('nope', fixture)).rejects.toThrow('Invalid version')
+    await expect(setVersion('1.2.3junk', fixture)).rejects.toThrow('Invalid version')
   })
 })

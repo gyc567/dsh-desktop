@@ -45,6 +45,25 @@
   Phase 2 = iOS TestFlight（需 Apple Developer 账号签名，与桌面签名证书同账号）
 - 结果: PASS — 待人类确认后进入 Run #16 实施 Phase 1
 
+## 2026-09-13
+
+### Run #17 — 手机壳代码审计（Run #16 产物）· L2 · 手动触发
+- started: 2026-09-13，人类要求审计 mobile/ 与 mobile-android.yml，有问题直接修复
+- 范围: mobile/www（连接屏）、mobile/scripts/set-version.mjs、capacitor.config.ts、
+  AndroidManifest/build.gradle 定制、.github/workflows/mobile-android.yml、test/mobile-android.test.ts
+- acted: 审计发现 7 项（安全 3 / 正确性 3 / 规范 1），全部直接修复:
+  ①app.js 取消扫码误报"扫码失败"（cancel 标志区分用户取消与真失败）
+  ②app.js 历史写入竞态（saveToHistory 未 await 就 location.href，异步写入可能丢失）
+  ③index.html 缺 CSP meta（本地壳页面）
+  ④版本标记未打时裸露 HTML 注释 → 改为 <!--VERSION:dev--> 带默认值，标记正则同步
+  ⑤set-version.mjs 版本正则过松（1.2.3junk 可通过）+ versionCode 碰撞隐患
+  （0.1.1-aura.105 与 0.1.2-aura.5 同为 10205 → Android 静默拒绝升级）→ 收紧正则 + counter>99 抛错
+  ⑥capacitor.config.ts 删除多余 allowMixedContent（导航明文由 manifest 管，该属性只削弱
+  https 远程页安全）⑦测试文件 __dirname → import.meta.dirname（仓库惯例）+ 消除重复导入
+- verified: 787/787 测试（新增 2 项：碰撞防护、CSP/版本默认值/无 innerHTML/await 断言）
+  + typecheck 通过
+- 结果: PASS；tokens(约): 25k
+
 ### Run #16 — 手机方案审计 + Phase 1 实施（Android Capacitor 壳）· L2 · 手动触发
 - started: 2026-09-13，人类要求"全面审计方案 → 更新方案 → 用新方案实现"
 - 审计（方案 v2 → v3 的 7 项改进）: ①鉴权是隧道源 Cookie（dsh_mobile），壳零 token 逻辑

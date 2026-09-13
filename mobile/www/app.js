@@ -59,20 +59,21 @@ function renderHistory(history) {
   )
 }
 
-function connect(raw) {
+async function connect(raw) {
   const url = normalizeUrl(raw)
   if (!url) {
     showError('链接无效：需要 http(s) 地址')
     return
   }
   showError('')
-  void saveToHistory(url)
+  // Persist before navigating: location.href tears the JS context down.
+  await saveToHistory(url)
   // Navigate the shell WebView to the bridge; pairing and the mobile UI are
   // served entirely by the desktop side, auth included (dsh_mobile cookie).
   window.location.href = url
 }
 
-document.getElementById('connect').addEventListener('click', () => connect(urlInput.value))
+document.getElementById('connect').addEventListener('click', () => void connect(urlInput.value))
 
 document.getElementById('paste').addEventListener('click', async () => {
   try {
@@ -83,6 +84,8 @@ document.getElementById('paste').addEventListener('click', async () => {
   }
 })
 
+let scanning = false
+
 document.getElementById('scan').addEventListener('click', async () => {
   try {
     const granted = await BarcodeScanner.checkPermission({ force: true })
@@ -91,20 +94,26 @@ document.getElementById('scan').addEventListener('click', async () => {
       return
     }
     showError('')
+    scanning = true
     document.body.style.background = 'transparent'
     scannerEl.classList.add('visible')
     const result = await BarcodeScanner.startScan()
     scannerEl.classList.remove('visible')
     document.body.style.background = ''
-    if (result.hasContent) connect(result.content)
+    scanning = false
+    if (result.hasContent) void connect(result.content)
   } catch {
     scannerEl.classList.remove('visible')
     document.body.style.background = ''
-    showError('扫码失败，请改用粘贴链接')
+    // User-initiated cancel surfaces here too; only report real failures.
+    if (scanning) showError('扫码失败，请改用粘贴链接')
+    scanning = false
   }
 })
 
 document.getElementById('cancel-scan').addEventListener('click', () => {
+  // Marks the cancel as intentional so the rejection stays silent.
+  scanning = false
   void BarcodeScanner.stopScan()
 })
 

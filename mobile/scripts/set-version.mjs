@@ -19,11 +19,18 @@ export function versionCodeFrom(version) {
   const [a = 0, b = 0, c = 0] = core.split('.').map((part) => Number.parseInt(part, 10) || 0)
   const code = a * 1_000_000 + b * 10_000 + c * 100
   const matches = pre.match(/(\d+)(?!.*\d)/)
-  return code + (matches ? Number.parseInt(matches[1], 10) : 0)
+  const counter = matches ? Number.parseInt(matches[1], 10) : 0
+  // Two digits max: the counter shares the slot the next patch level uses,
+  // so 0.1.1-aura.105 would otherwise collide with 0.1.2-aura.5 (both 10205)
+  // and Android would silently refuse the upgrade.
+  if (counter > 99) {
+    throw new Error(`Prerelease counter ${counter} exceeds 99; versionCode would collide`)
+  }
+  return code + counter
 }
 
 export async function setVersion(version, root = mobileRoot) {
-  if (!version || !/^\d+\.\d+\.\d+/.test(version)) {
+  if (!version || !/^\d+\.\d+\.\d+(?:-[\w.]+)?$/.test(version)) {
     throw new Error(`Invalid version: ${version}`)
   }
   const code = versionCodeFrom(version)
@@ -38,8 +45,10 @@ export async function setVersion(version, root = mobileRoot) {
 
   const indexPath = join(root, 'www/index.html')
   const index = await readFile(indexPath, 'utf8')
-  if (!index.includes('<!--VERSION-->')) throw new Error(`version marker missing in ${indexPath}`)
-  await writeFile(indexPath, index.replace('<!--VERSION-->', version))
+  if (!/<!--VERSION(?::[^>]*)?-->/.test(index)) {
+    throw new Error(`version marker missing in ${indexPath}`)
+  }
+  await writeFile(indexPath, index.replace(/<!--VERSION(?::[^>]*)?-->/, version))
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
