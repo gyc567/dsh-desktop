@@ -38,6 +38,7 @@ describe('mobile android workflow', () => {
     expect(yml).toContain('node scripts/set-version.mjs "${GITHUB_REF_NAME#v}"')
     expect(yml).toContain('npx cap sync android')
     expect(yml).toContain('./gradlew assembleRelease')
+    expect(yml).toContain('androiddebugkey')
     expect(yml).toContain('cp android/app/build/outputs/apk/release/app-release.apk aura-mobile-android.apk')
     expect(yml).toMatch(/name: mobile-android/)
     expect(yml).toContain('path: mobile/aura-mobile-android.apk')
