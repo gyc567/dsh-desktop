@@ -45,6 +45,27 @@
   Phase 2 = iOS TestFlight（需 Apple Developer 账号签名，与桌面签名证书同账号）
 - 结果: PASS — 待人类确认后进入 Run #16 实施 Phase 1
 
+### Run #16 — 手机方案审计 + Phase 1 实施（Android Capacitor 壳）· L2 · 手动触发
+- started: 2026-09-13，人类要求"全面审计方案 → 更新方案 → 用新方案实现"
+- 审计（方案 v2 → v3 的 7 项改进）: ①鉴权是隧道源 Cookie（dsh_mobile），壳零 token 逻辑
+  ②隧道轮换 → 每次启动必经连接屏即正确 UX ③LAN 明文兜底 usesCleartextTraffic
+  ④签名 graceful 降级（无 keystore secret → debug 签名）⑤android 平台目录入库
+  ⑥契约测试 test/mobile-android.test.ts ⑦扫码插件选型：barcode-scanner v4 只支持 Cap 5 →
+  换官方 @capacitor-mlkit/barcode-scanning@6.2.0
+- acted: mobile/ Capacitor 6 壳（appId com.aura.mobile，品牌名/图标/版本脚注）、连接屏
+  （ML Kit 扫码 + 粘贴 + 历史记录 Preferences）、set-version.mjs 版本戳（.d.mts 声明遵循仓库惯例）、
+  mobile-android.yml（tag 出 aura-mobile-android.apk，PR 只构建）
+- verified（6 轮 CI dispatch 排障后）: run 34735689200 success → aura-mobile-android.apk 12.4MB，
+  assets/public 内含配对屏资源；785/785 测试 + typecheck 通过
+- found（CI 排障链，全部真实缺陷）: ①cap sync 需 typescript devDependency ②npm 默认装 TS7，
+  @capacitor/cli 6 require 钩子不兼容 → pin ^5.4 ③adaptive-icon drawable 不接受颜色字面量（AAPT）
+  ④AGP debug keystore 默认路径解析到 ~/.config/.android 与 CI 生成位置错位 → 钉到仓库内
+  mobile/android/debug.keystore 显式路径
+- escalated: ①真机未验证（配对全链路需真机+桌面端联调，人类认领）
+  ②MOBILE_ANDROID_KEYSTORE 等 4 个 secret 未配（当前 debug 签名，用户侧载够用；配后出正式自签名）
+  ③下次桌面 tag 发版时 aura-mobile-android.apk 需加入手动 release 流程（Run-book 增补）
+- 结果: PASS — Phase 1 完成，549c987 起 6 个提交已推 origin/main；tokens(约): 120k
+
 ### Run #14 — 进度同步 + 手机安装包方案调研（L1 只报告）· 手动触发
 - started: 2026-09-13，人类要求记录进度 + 分析打包成手机安装包的完整方案（先不写代码）
 - found: 工作区干净，本地与 origin/main 同步在 e1a39e2（Run #13 aura.6 上线已闭环）

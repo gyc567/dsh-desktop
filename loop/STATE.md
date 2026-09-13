@@ -30,11 +30,12 @@
 6. [infra] 配齐 DESKTOP_* Apple secrets + DESKTOP_WINDOWS_SIGNING_PIN（+ UKey self-hosted runner）
    后，publish 链恢复全自动发布并出签名包；届时 Run #9 的手动发布流程退役。
    同一 Apple Developer 账号兼作 iOS TestFlight 分发（Run #15 决策 2）
-7. [planned] 手机安装包（Run #15 决策锁定）：Capacitor 薄壳 WebView 加载配对后隧道 URL。
-   Phase 1 = Android APK 随 tag 出包、GitHub Releases 直发（自签名 sideload）；Phase 2 = iOS
-   TestFlight（需 Apple Developer 账号）。协议层复用 src/main/mobile/，无原生能力需求，
-   单服务器配置。待人类确认后 Run #16 实施 Phase 1
-7. （后续）contract-guard / patch-sentinel 上线（第 2-4 周）
+7. [done] 手机 Phase 1 — Android Capacitor 壳 — 2026-09-13 ✅（Run #16，549c987 起 6 提交）
+   - mobile-android.yml tag 出 aura-mobile-android.apk（12.4MB，CI 验证通过）；配对协议/
+     WS mux/移动 UI 全复用 src/main/mobile/，壳零 token 逻辑（Cookie 在隧道源）
+   - 待办: 真机联调（人类认领）；MOBILE_ANDROID_* 4 个 secret（配后正式自签名）；
+     下次桌面 tag 发版把 APK 并入 release 资产；Phase 2 iOS TestFlight 排期
+8. （后续）contract-guard / patch-sentinel 上线（第 2-4 周）
 
 ## 最近巡检
 
