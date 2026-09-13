@@ -63,7 +63,7 @@ describe('mobile shell package', () => {
       'utf8'
     )
     expect(gradle).toContain('key.properties')
-    expect(gradle).toContain('initWith signingConfigs.debug')
+    expect(gradle).toContain('storeFile file("$rootDir/debug.keystore")')
     expect(gradle).toContain('applicationId "com.aura.mobile"')
   })
 
