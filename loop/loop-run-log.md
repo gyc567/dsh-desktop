@@ -32,6 +32,18 @@
 
 ## 2026-09-11
 
+## 2026-09-13
+
+### Run #14 — 进度同步 + 手机安装包方案调研（L1 只报告）· 手动触发
+- started: 2026-09-13，人类要求记录进度 + 分析打包成手机安装包的完整方案（先不写代码）
+- found: 工作区干净，本地与 origin/main 同步在 e1a39e2（Run #13 aura.6 上线已闭环）
+- found（关键现状）: 仓库已有 `src/main/mobile/` —— 桌面端内置手机桥（LAN + pinggy/cloudflared
+  隧道 + 配对流程 + QR + WebSocket mux + "DSH Mobile" 页面，apple-mobile-web-app meta 已就位）。
+  手机目前可通过浏览器访问桌面端 UI；**尚无任何原生壳（无 capacitor/react-native 依赖）**。
+  桌面端核心价值（本地跑 harness：pnpm/node 服务/koffi FFI/文件系统工作区）无法在手机上运行
+- acted: 仅分析与出方案（L1 模式不改代码）；方案与决策问题输出给人类
+- 结果: PASS（方案待人类决策后进入 Run #15 实施）；tokens(约): 20k
+
 ### Run #13 — v0.1.1-aura.6 重出包（覆盖内嵌旧更新源的 aura.5）· L2 · 手动触发
 - started: 2026-09-11，Run #12 遗留：外发 aura.5 包内嵌上游更新源，须重出包覆盖 releases/latest
 - acted: tag v0.1.1-aura.6 打在 2bdcf8e（含 Run #12 更新源修复），推送触发 CI；后台监视中
