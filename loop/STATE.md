@@ -28,7 +28,12 @@
 4. [manual] dmg 安装冒烟（人类已认领，进行中）—— 现可直接用 releases/latest 的 aura-mac-arm64.dmg
 5. [manual] 替换正式设计 logo（换 build/ 下 PNG + 重跑 install-brand-assets）
 6. [infra] 配齐 DESKTOP_* Apple secrets + DESKTOP_WINDOWS_SIGNING_PIN（+ UKey self-hosted runner）
-   后，publish 链恢复全自动发布并出签名包；届时 Run #9 的手动发布流程退役
+   后，publish 链恢复全自动发布并出签名包；届时 Run #9 的手动发布流程退役。
+   同一 Apple Developer 账号兼作 iOS TestFlight 分发（Run #15 决策 2）
+7. [planned] 手机安装包（Run #15 决策锁定）：Capacitor 薄壳 WebView 加载配对后隧道 URL。
+   Phase 1 = Android APK 随 tag 出包、GitHub Releases 直发（自签名 sideload）；Phase 2 = iOS
+   TestFlight（需 Apple Developer 账号）。协议层复用 src/main/mobile/，无原生能力需求，
+   单服务器配置。待人类确认后 Run #16 实施 Phase 1
 7. （后续）contract-guard / patch-sentinel 上线（第 2-4 周）
 
 ## 最近巡检

@@ -34,6 +34,17 @@
 
 ## 2026-09-13
 
+### Run #15 — 手机安装包方案决策锁定 · L1 · 手动触发
+- started: 2026-09-13，人类回答 Run #14 五个决策问题
+- decisions: ①公网隧道场景为主 ②Android 先行，iOS 走 TestFlight ③GitHub Releases 直发 APK 可接受
+  ④不要推送/生物锁等原生能力 ⑤不做云服务器多租户形态
+- 架构定稿: Capacitor 薄壳（WebView 加载配对后的隧道 URL）——决策 3 要求 APK 实体包
+  （PWA 无法以 APK 分发），决策 4 使原生插件降至最少（仅相机扫码可选），
+  单服务器配置即可。配对协议/WS mux/移动 UI 全部复用 src/main/mobile/ 现有实现
+- 路线: Phase 1 = Android APK（GitHub Releases 随 tag 产出，自签名 sideload）；
+  Phase 2 = iOS TestFlight（需 Apple Developer 账号签名，与桌面签名证书同账号）
+- 结果: PASS — 待人类确认后进入 Run #16 实施 Phase 1
+
 ### Run #14 — 进度同步 + 手机安装包方案调研（L1 只报告）· 手动触发
 - started: 2026-09-13，人类要求记录进度 + 分析打包成手机安装包的完整方案（先不写代码）
 - found: 工作区干净，本地与 origin/main 同步在 e1a39e2（Run #13 aura.6 上线已闭环）
