@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no"
+    />
+    <meta name="color-scheme" content="dark" />
+    <title>Aura智能工作台 · 连接</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0d1117;
+        --panel: #161b22;
+        --border: #30363d;
+        --text: #e6edf3;
+        --muted: #8b949e;
+        --accent: #2f81f7;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body { height: 100%; }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: -apple-system, 'PingFang SC', 'Noto Sans SC', sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 32px 20px calc(24px + env(safe-area-inset-bottom));
+      }
+      main { width: 100%; max-width: 420px; display: flex; flex-direction: column; gap: 16px; }
+      h1 { font-size: 22px; text-align: center; margin-top: 8px; }
+      .subtitle { color: var(--muted); font-size: 13px; text-align: center; line-height: 1.6; }
+      .panel {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      button {
+        border: none;
+        border-radius: 10px;
+        padding: 14px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .primary { background: var(--accent); color: #fff; }
+      .ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+      textarea {
+        width: 100%;
+        min-height: 72px;
+        resize: vertical;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        color: var(--text);
+        padding: 10px;
+        font-size: 14px;
+        font-family: inherit;
+      }
+      .history { display: flex; flex-direction: column; gap: 8px; }
+      .history button {
+        text-align: left;
+        font-weight: 400;
+        font-size: 14px;
+        padding: 12px;
+        word-break: break-all;
+      }
+      .row { display: flex; gap: 8px; }
+      .row button { flex: 1; }
+      #error { color: #f85149; font-size: 13px; display: none; }
+      footer { margin-top: auto; color: var(--muted); font-size: 12px; text-align: center; }
+      #scanner {
+        position: fixed;
+        inset: 0;
+        background: #000;
+        display: none;
+        flex-direction: column;
+      }
+      #scanner.visible { display: flex; }
+      #scanner video { flex: 1; object-fit: cover; }
+      #scanner .bar {
+        padding: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.85);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Aura智能工作台</h1>
+      <p class="subtitle">
+        在电脑端 Aura 打开「连接移动设备」，扫码或粘贴链接即可开始。<br />
+        首次连接需在电脑上批准配对。
+      </p>
+      <div class="panel">
+        <button id="scan" class="primary">扫描二维码</button>
+        <textarea
+          id="url"
+          placeholder="粘贴配对链接，例如 https://xxx.trycloudflare.com/pair?token=…"
+        ></textarea>
+        <div class="row">
+          <button id="connect" class="ghost">连接</button>
+          <button id="paste" class="ghost">读取剪贴板</button>
+        </div>
+        <p id="error"></p>
+      </div>
+      <div class="panel" id="history-panel" style="display: none">
+        <p class="subtitle" style="text-align: left">最近连接</p>
+        <div class="history" id="history"></div>
+      </div>
+    </main>
+    <footer>Aura 移动壳 v<!--VERSION--> · Eric | 微信：360369487</footer>
+    <div id="scanner">
+      <div class="bar">
+        <span style="color: #fff">对准电脑端二维码</span>
+        <button id="cancel-scan" class="ghost">取消</button>
+      </div>
+      <video id="video"></video>
+    </div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

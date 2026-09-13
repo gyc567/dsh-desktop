@@ -1,0 +1,19 @@
+{
+  "name": "aura-mobile",
+  "private": true,
+  "version": "0.1.1-aura.6",
+  "type": "module",
+  "description": "Aura智能工作台 mobile shell — thin WebView wrapper that pairs with the Aura desktop bridge over a tunnel or LAN",
+  "scripts": {
+    "sync": "cap sync android"
+  },
+  "dependencies": {
+    "@capacitor-mlkit/barcode-scanning": "6.2.0",
+    "@capacitor/android": "^6.2.0",
+    "@capacitor/core": "^6.2.0",
+    "@capacitor/preferences": "^6.0.3"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.2.0"
+  }
+}
